@@ -89,7 +89,7 @@ object Main {
     if (coins.isEmpty) 0
     else if (money - coins.head == 0) 1 //exact match
     else if (money - coins.head < 0) 0  //too much change return 0
-
+    //repeat the loop
     else countChange(money - coins.head, coins) + countChange(money, coins.tail)
 
   }
