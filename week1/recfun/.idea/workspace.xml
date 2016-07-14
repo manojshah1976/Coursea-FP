@@ -2,10 +2,7 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="0a4d9e0f-52d0-4c14-b9b3-8b4aea59756f" name="Default" comment="">
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/.idea/vcs.xml" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/src/main/scala/recfun/play.sc" afterPath="" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/target/scala-2.11/classes/recfun/play.sc" afterPath="$PROJECT_DIR$/target/scala-2.11/classes/recfun/play.sc" />
     </list>
     <ignored path="progfun1-recfun.iws" />
     <ignored path=".idea/workspace.xml" />
@@ -418,7 +415,14 @@
       <option name="project" value="LOCAL" />
       <updated>1468493999174</updated>
     </task>
-    <option name="localTasksCounter" value="2" />
+    <task id="LOCAL-00002" summary="just removed the crapy files">
+      <created>1468494392927</created>
+      <option name="number" value="00002" />
+      <option name="presentableId" value="LOCAL-00002" />
+      <option name="project" value="LOCAL" />
+      <updated>1468494392927</updated>
+    </task>
+    <option name="localTasksCounter" value="3" />
     <servers />
   </component>
   <component name="TestHistory">
@@ -492,7 +496,8 @@
   </component>
   <component name="VcsManagerConfiguration">
     <MESSAGE value="just updated comments" />
-    <option name="LAST_COMMIT_MESSAGE" value="just updated comments" />
+    <MESSAGE value="just removed the crapy files" />
+    <option name="LAST_COMMIT_MESSAGE" value="just removed the crapy files" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
