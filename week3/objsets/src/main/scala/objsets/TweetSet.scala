@@ -56,7 +56,7 @@ abstract class TweetSet {
     * Question: Should we implment this method here, or should it remain abstract
     * and be implemented in the subclasses?
     */
-  def union(that: TweetSet): TweetSet = ???
+  def union(that: TweetSet): TweetSet
 
   /**
     * Returns the tweet from this set which has the greatest retweet count.
@@ -67,7 +67,8 @@ abstract class TweetSet {
     * Question: Should we implment this method here, or should it remain abstract
     * and be implemented in the subclasses?
     */
-  def mostRetweeted: Tweet = ???
+  def isEmpty:Boolean
+  def mostRetweeted: Tweet
 
   /**
     * Returns a list containing all tweets of this set, sorted by retweet count
@@ -78,7 +79,14 @@ abstract class TweetSet {
     * Question: Should we implment this method here, or should it remain abstract
     * and be implemented in the subclasses?
     */
-  def descendingByRetweet: TweetList = ???
+  def descendingByRetweet: TweetList =
+  {
+    if(isEmpty) Nil
+    else {
+      new Cons(mostRetweeted,remove(mostRetweeted).descendingByRetweet )
+    }
+
+  }
 
   /**
     * The following methods are already implemented
@@ -111,7 +119,7 @@ abstract class TweetSet {
 class Empty extends TweetSet {
   //Wrong do not give a blank as this resets the acc give the existing acc to this function as we need to keep a tally
   def filterAcc(p: Tweet => Boolean, acc: TweetSet): TweetSet = acc
-
+  def union(other:TweetSet):TweetSet= other
   /**
     * The following methods are already implemented
     */
@@ -119,14 +127,17 @@ class Empty extends TweetSet {
   def contains(tweet: Tweet): Boolean = false
 
   def incl(tweet: Tweet): TweetSet = new NonEmpty(tweet, new Empty, new Empty)
+  def isEmpty=true
 
   def remove(tweet: Tweet): TweetSet = this
 
   def foreach(f: Tweet => Unit): Unit = ()
+  def mostRetweeted:Tweet= throw new java.util.NoSuchElementException
+
 }
 
 class NonEmpty(elem: Tweet, left: TweetSet, right: TweetSet) extends TweetSet {
-
+  def isEmpty=false
   override def toString="{" + left + " -" + "User:"+ elem.user+ "' txt:" +elem.text+"' (" + elem.retweets +") - " + right +"}"
   def filterAcc(p: Tweet => Boolean, acc: TweetSet): TweetSet =
   //check elements satisfy condition p
@@ -137,16 +148,27 @@ class NonEmpty(elem: Tweet, left: TweetSet, right: TweetSet) extends TweetSet {
        //return the accumulator however need to traverse empty branches too
        else  right.filterAcc(p, left.filterAcc(p, acc))
 
+  }
+  def union(other:TweetSet):TweetSet={
+    ((left union right) union other).incl(elem)
+  }
+  def mostRetweeted:Tweet=
+  {
+    //recursive call to see if the current tweet has had more tweets on the left and right side of binary tree
+    val bestRight={
+    if(right.isEmpty) elem
+    else if ( right.mostRetweeted.retweets>elem.retweets) right.mostRetweeted
+    else elem}
 
+    val bestLeft={if(left.isEmpty) elem
+    else if ( left.mostRetweeted.retweets>elem.retweets) left.mostRetweeted
+    else  elem}
 
+    if (bestRight.retweets>bestLeft.retweets) bestRight
+    else if (bestLeft.retweets>bestRight.retweets) bestLeft
+    else elem
 
   }
-
-
-
-  /**
-    * The following methods are already implemented
-    */
 
   def contains(x: Tweet): Boolean =
     if (x.text < elem.text) left.contains(x)
