@@ -4,7 +4,7 @@
 		module="rational$sources_2.11"
 		revision="1.0"
 		status="integration"
-		publication="20160713170353"
+		publication="20160718173108"
 	/>
 	<configurations>
 		<conf name="compile" visibility="public" description=""/>
