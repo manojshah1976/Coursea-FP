@@ -14,16 +14,21 @@ val unique=allEle.foldLeft(List(allEle.head._1))((b,a)=>{
 
 
 
+
 def combi(occurrences: Occurrences):List[Occurrences]= {
 
-  if (occurrences.isEmpty) List(List())
+  if (occurrences.isEmpty)
+    List(List())
   else
-
-  (for {
-    i <- occurrences.head._2 to 0 by -1
-    os <- combi(occurrences.tail)
-  } yield if (i == 0) {os} else (occurrences.head._1, i) :: os).toList
+    (for {
+      i <- 0 to occurrences.head._2
+      oCombi <- combi(occurrences.tail)
+    }
+      yield
+        if (i==0) oCombi
+        else
+        (occurrences.head._1,i)::oCombi
+      ).toList
 }
-
 
 combi(allEle).foreach(x=>println(x))
